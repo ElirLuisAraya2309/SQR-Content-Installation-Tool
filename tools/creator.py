@@ -11,8 +11,6 @@ class Creator(Image):
         self.docker_env = image_args.docker_env
     
     def document_release(self) -> None:
-        #release_document_name = f'C:\\ReleaseTool\\output_files\\{self.activity}-{self.product}-{self.chop}-{self.tag}-Release Notes.txt'
-        #documentation_file = open(release_document_name,'w')
         pass
         
         
@@ -20,6 +18,6 @@ class Creator(Image):
         pass
         
     def create_release(self) -> None:
-        base_command = f'{SSH_LOADER_PATH} -c C:\\ReleaseTool\\ini_files\\create_target_image.ini'
+        base_command = f'{SSH_LOADER_PATH} -c C:\\SQR-Content-Installation-Tool\\ini_files\\create_target_image.ini'
         release_args = f' -m IMAGE_TAG={self.tag} -m IMAGE_CONFIG={self.docker_env} -m ACTIVITY={self.activity} -m PRODUCT={self.product} -m CHOP={self.chop}'
         run_command(base_command + release_args)

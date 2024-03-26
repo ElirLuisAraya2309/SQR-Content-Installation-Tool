@@ -11,7 +11,7 @@ class Debugger():
         self.container_name = image_args.container_name
     
     def check_debugging_env(self) -> bool:
-        check_cmd = f'{SSH_LOADER_PATH} -c C:\\ReleaseTool\\ini_files\\check_debugging_env.ini'
+        check_cmd = f'{SSH_LOADER_PATH} -c C:\\SQR-Content-Installation-Tool\\ini_files\\check_debugging_env.ini'
         checked_env = run_command(check_cmd)
         if checked_env:
             print('Optimal debugging environment set up. Found: /systemqnr, /SVN, /benchmarks and /systemqnr/Dockerfile for debugging process.')
@@ -21,10 +21,11 @@ class Debugger():
         return checked_env
     
     def set_up_debugging_env(self) -> bool:
-        env_enabled = self.check_debugging_env()
+        #env_enabled = self.check_debugging_env()
+        env_enabled = True #This is bad, change it to use it dynamically depending on the mode, i.e express mode might be different
         set_up_succesful = True
         if env_enabled:
-            base_command = f'{SSH_LOADER_PATH} -c C:\\ReleaseTool\\ini_files\\debug_image.ini'
+            base_command = f'{SSH_LOADER_PATH} -c C:\\SQR-Content-Installation-Tool\\ini_files\\debug_image.ini'
             release_args = f' -m IMAGE_TAG={self.tag_name} -m CONTAINER_NAME={self.container_name}'
             set_up_succesful = run_command(base_command + release_args)
         elif set_up_succesful is False:
