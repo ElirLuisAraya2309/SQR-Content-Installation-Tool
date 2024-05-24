@@ -9,8 +9,15 @@ class Express(Image):
     
     def __init__(self, image_args)->None:
         super().__init__(image_args)
+        self.container_name = image_args.container_name
+        self.content_name = image_args.content_name
     
     def create_image(self):
         base_command = f'{SSH_LOADER_PATH} -c C:\\SQR-Content-Installation-Tool\\ini_files\\create_upload_existing_image.ini'
         release_args = f' -m IMAGE_TAG={self.tag} -m ACTIVITY={self.activity} -m PRODUCT={self.product} -m CHOP={self.chop}'
         run_command(base_command + release_args)
+
+    def create_upload_container(self):
+        base_command = f'{SSH_LOADER_PATH} -c C:\\SQR-Content-Installation-Tool\\ini_files\\create_upload_container.ini'
+        container_args = f' -m CONTAINER={self.container_name} -m CONTENT_NAME={self.content_name}'
+        run_command(base_command + container_args)
